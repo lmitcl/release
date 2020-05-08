@@ -22,13 +22,13 @@ public class Release extends AggregateRoot {
     @AttributeOverrides({
             @AttributeOverride(name="id", column=@Column(name="release_id"))
     })
-    private ReleaseId   releaseId;
+    private ReleaseId       releaseId;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name="id", column=@Column(name="sprint_id"))
-    })
-    private SprintId        sprintId;
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name="id", column=@Column(name="sprint_id"))
+//    })
+//    private SprintId        sprintId;
 
     @Embedded
     private String          version;
@@ -36,12 +36,15 @@ public class Release extends AggregateRoot {
     @Enumerated(EnumType.STRING)
     private Status          status;
 
-    @Embedded
+    @ElementCollection
+    @AttributeOverrides({
+            @AttributeOverride(name="id", column=@Column (name="task_id"))
+    })
     private Set<TaskId>     tasks;
 
     @Embedded
     private ReleasePeriod   releasePeriod;
-
+    @Embedded
     private String          description;
 
 

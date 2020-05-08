@@ -1,6 +1,6 @@
 CREATE TABLE RELEASES(
   ID                          bigserial PRIMARY KEY     NOT NULL ,
-  RELEASES_ID                 VARCHAR (200)             NOT NULL ,
+  RELEASE_ID                  VARCHAR (200)             NOT NULL ,
   VERSION                     VARCHAR (100)             NOT NULL ,
   STATUS                      VARCHAR (100)             NOT NULL ,
   CREATE_DATE                 DATE                      NOT NULL ,

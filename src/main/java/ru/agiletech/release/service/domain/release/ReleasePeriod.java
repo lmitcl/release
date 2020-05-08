@@ -8,10 +8,12 @@ import lombok.Setter;
 import org.springframework.data.annotation.Transient;
 import ru.agiletech.release.service.domain.supertype.ValueObject;
 
+import javax.persistence.Embeddable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
+@Embeddable
 @Getter(value = AccessLevel.PACKAGE)
 @Setter(value = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
