@@ -29,7 +29,7 @@ public class LinksUtil {
 
     private void addStatusLink(ReleaseDTO releaseDTO){
         releaseDTO.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ReleaseResource.class)
-                .changeStatus(releaseDTO.getId(),null))
+                .changeStatus(releaseDTO.getId(),null, releaseDTO.getCreateDate(), releaseDTO.getReleaseDate()))
                 .withRel("status"));
     }
 

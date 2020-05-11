@@ -27,29 +27,26 @@ public class ReleaseDTO extends RepresentationModel<ReleaseDTO> {
     private String      version;
 
     @NotEmpty
-    @ApiModelProperty(position = 2, required = true, value = "Статус")
+    @ApiModelProperty(position = 2, required = true, value = "Статус", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private String      status;
 
-    @NotEmpty
-    @ApiModelProperty(position = 3, required = true, value = "Завершенные задачи")
+    @ApiModelProperty(position = 3, required = true, value = "Завершенные задачи", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private Set<String> tasksDone;
 
-    @ApiModelProperty(position = 4, value = "Задачи в работе")
+    @ApiModelProperty(position = 4, value = "Задачи в работе", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private Set<String> tasksInProgress;
 
-    @NotEmpty
-    @ApiModelProperty(position = 5, required = true, value = "Задачи к выполнению")
+    @ApiModelProperty(position = 5, required = true, value = "Задачи к выполнению", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private Set<String> tasksToDo;
 
-    @ApiModelProperty(position = 6, value = "Дата создания версии")
-    private LocalDate   createDate;
+    @ApiModelProperty(position = 6, value = "Дата создания версии", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    private  LocalDate  createDate;
 
-    @ApiModelProperty(position = 7, value = "Дата вывода релиза")
+    @ApiModelProperty(position = 7, value = "Дата вывода релиза", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private LocalDate   releaseDate;
 
+    @NotEmpty
     @ApiModelProperty(position = 8, value = "Описание версии")
     private String      description;
-
-
 
 }

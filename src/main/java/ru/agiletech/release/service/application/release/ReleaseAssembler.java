@@ -22,11 +22,7 @@ public class ReleaseAssembler {
 
         releaseDTO.setId(id);
         releaseDTO.setStatus(status);
-        releaseDTO.setTasksDone(tasks);
-        releaseDTO.setTasksInProgress(tasks);
-        releaseDTO.setTasksToDo(tasks);
-        releaseDTO.setCreateDate(release.startDateOfReleasePeriod());
-        releaseDTO.setReleaseDate(release.endDateOfReleasePeriod());
+        releaseDTO.setVersion(release.version());
         releaseDTO.setDescription(release.description());
 
         return releaseDTO;

@@ -5,14 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.agiletech.release.service.domain.DomainEventPublisher;
 import ru.agiletech.release.service.domain.release.Release;
 import ru.agiletech.release.service.domain.release.ReleaseId;
 import ru.agiletech.release.service.domain.release.ReleaseRepository;
 import ru.agiletech.release.service.domain.release.ReleaseScheduled;
 import ru.agiletech.release.service.domain.task.TaskId;
 
-import java.util.Collections;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +22,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class ReleaseServiceImpl implements ReleaseService {
 
-    private final DomainEventPublisher<ReleaseScheduled>    releaseScheduledEventPublisher;
+    //private final DomainEventPublisher<ReleaseScheduled>    releaseScheduledEventPublisher;
     private final ReleaseRepository                         releaseRepository;
     private final ReleaseAssembler                          releaseAssembler;
 
@@ -44,15 +44,18 @@ public class ReleaseServiceImpl implements ReleaseService {
         return releaseAssembler.writeDTO(release);
     }
 
+
     @Override
     public void changeStatus(String id,
-                             String rawStatus) {
+                             String rawStatus,
+                             LocalDate rawCreateDate,
+                             LocalDate rawReleaseDate) {
         log.info("Change status");
 
         ReleaseId releaseId = ReleaseId.identifyReleaseFrom(id);
         Release release = releaseRepository.releaseOfId(releaseId);
 
-        release.changeStatus(Release.Status.fromName(rawStatus));
+        release.changeStatus(Release.Status.fromName(rawStatus), rawCreateDate, rawReleaseDate);
         log.info("Status has been changed for release with id {}", releaseId);
 
         releaseRepository.save(release);
@@ -61,7 +64,7 @@ public class ReleaseServiceImpl implements ReleaseService {
     }
 
     @Override
-    public void scheduleSprint(String id, String rawTaskId) {
+    public void scheduleRelease(String id, String rawTaskId) {
         log.info("Schedule release with id{}", id);
 
         ReleaseId releaseId = ReleaseId.identifyReleaseFrom(id);
@@ -70,7 +73,7 @@ public class ReleaseServiceImpl implements ReleaseService {
         TaskId taskId = TaskId.identifyTaskFrom(rawTaskId);
 
         ReleaseScheduled event = release.schedule(taskId);
-        releaseScheduledEventPublisher.publish(Collections.singletonList(event));
+        //releaseScheduledEventPublisher.publish(Collections.singletonList(event));
 
         log.info("Release with id{} has been scheduled", release.releaseId());
 

@@ -1,5 +1,6 @@
 package ru.agiletech.release.service.application.release;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 public interface ReleaseService {
@@ -7,9 +8,11 @@ public interface ReleaseService {
     ReleaseDTO createRelease(ReleaseDTO releaseDTO);
 
     void changeStatus(String id,
-                      String rawStatus);
+                      String rawStatus,
+                      LocalDate rawCreateDate,
+                      LocalDate rawReleaseDate);
 
-    void scheduleSprint(String id,
+    void scheduleRelease(String id,
                         String rawTaskId);
 
     ReleaseDTO searchRelease(String id);

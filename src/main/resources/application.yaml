@@ -23,7 +23,7 @@ spring:
   batch:
     initialize-schema: never
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/release
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

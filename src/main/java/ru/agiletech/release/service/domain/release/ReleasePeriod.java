@@ -25,10 +25,11 @@ public class ReleasePeriod implements ValueObject {
     static LocalDate EMPTY_DATE = null;
 
     private LocalDate createDate;
+
     private LocalDate releaseDate;
 
     static ReleasePeriod between(LocalDate createDate,
-                                LocalDate releaseDate){
+                                 LocalDate releaseDate){
         return new ReleasePeriod(createDate,
                 releaseDate);
     }

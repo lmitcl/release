@@ -2,7 +2,6 @@ package ru.agiletech.release.service.domain.release;
 
 import lombok.*;
 import org.apache.commons.collections.CollectionUtils;
-import ru.agiletech.release.service.domain.sprint.SprintId;
 import ru.agiletech.release.service.domain.supertype.AggregateRoot;
 import ru.agiletech.release.service.domain.task.TaskId;
 
@@ -30,7 +29,7 @@ public class Release extends AggregateRoot {
 //    })
 //    private SprintId        sprintId;
 
-    @Embedded
+
     private String          version;
 
     @Enumerated(EnumType.STRING)
@@ -44,7 +43,7 @@ public class Release extends AggregateRoot {
 
     @Embedded
     private ReleasePeriod   releasePeriod;
-    @Embedded
+
     private String          description;
 
 
@@ -60,11 +59,18 @@ public class Release extends AggregateRoot {
         this.description    = description;
     }
 
-    public void changeStatus(Status status){
+    public void changeStatus(Status status,
+                             LocalDate createDate,
+                             LocalDate releaseDate){
         if(status == Status.UNKNOWN)
             throw new IllegalArgumentException("Unknown status");
 
+        if(Optional.ofNullable(createDate).isEmpty()
+                || Optional.ofNullable(releaseDate).isEmpty())
+            throw new IllegalArgumentException("Wrong period values");
+
         this.status = status;
+        this.releasePeriod = ReleasePeriod.between(createDate, releaseDate);
     }
 
     public long daysOfRelease(){
@@ -116,6 +122,9 @@ public class Release extends AggregateRoot {
 
     public String description(){
         return this.description;
+    }
+    public String version(){
+        return this.version;
     }
 
     public Set<String> tasks(){
